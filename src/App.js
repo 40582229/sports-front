@@ -1,10 +1,11 @@
 import './App.css';
-import RegisterScreen from './components/Screens/RegisterScreen'
+import Controler from './controler/Controler'
 function App() {
+
   return (
     <div className="App">
       <header className="App-header">
-      <RegisterScreen></RegisterScreen>
+      <Controler></Controler>
       </header>
 
     </div>

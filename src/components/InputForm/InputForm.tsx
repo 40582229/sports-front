@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import MyButton from "../MyButton/MyButton";
-
+import './InputForm.scss'
 interface InputFormProps{
     type: string,
+    setRoute:Dispatch<SetStateAction<string>>
 }
 
-const InputForm = ({type}:InputFormProps) =>{
+const InputForm = ({type, setRoute}:InputFormProps) =>{
 
     const [username, setUsername] = useState("");
 
@@ -45,7 +46,8 @@ const InputForm = ({type}:InputFormProps) =>{
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
-            <MyButton buttonText={type} ></MyButton>
+            <MyButton buttonText={"SUBMIT"}></MyButton>
+            <MyButton buttonText={type} setRoute={setRoute}></MyButton>
           </Form>
         </div>
     );
