@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "jsx": "react",
+      "baseUrl": "src",
+      "paths": {
+      "@/components/*": ["components/*"]
+    },
+    "moduleResolution": "node"
+  }
+}
+
+  
