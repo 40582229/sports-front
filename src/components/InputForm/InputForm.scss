@@ -57,12 +57,17 @@ form .my-button, .register-button, .login-button {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
-    margin-top: 10px;
+    margin-top: 15px;
 
 }
 .register-button, .login-button {
     width: auto;
     float: right;
+
+}
+.error{
+    font-size:small;
+    color: red;
 
 }
 .my-button{

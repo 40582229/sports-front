@@ -5,10 +5,11 @@ import { useTranslation } from "react-i18next";
 
 interface MyButtonProps{
   buttonText:string,
-  setRoute?:Dispatch<SetStateAction<string>>
+  setRoute?:Dispatch<SetStateAction<string>>,
+  handleOnClick?:()=>void
 }
 
-const MyButton = ({buttonText,setRoute}:MyButtonProps) => {
+const MyButton = ({buttonText,setRoute,handleOnClick}:MyButtonProps) => {
   const {t} = useTranslation();
   /*const fetcher = () => {
     let fetchRes = fetch("http://127.0.0.1:5000/");
@@ -24,7 +25,7 @@ const MyButton = ({buttonText,setRoute}:MyButtonProps) => {
   if(setRoute){
     return(<Button className={`${buttonText}-button`} onClick={()=>setRoute(buttonText)} >{t(buttonText)}</Button>)
   }
-  return(<Button className="my-button" type="submit" >{t(buttonText)}</Button>)
+  return(<Button className="my-button" onClick={handleOnClick}>{t(buttonText)}</Button>)
 };
 
 export default MyButton;

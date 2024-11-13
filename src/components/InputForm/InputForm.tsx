@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-
+import {handleLogin} from '../../../src/Methods/methods'
 import Form from "react-bootstrap/Form";
 import MyButton from "../MyButton/MyButton";
 import './InputForm.scss'
@@ -8,24 +8,31 @@ interface InputFormProps{
     setRoute:Dispatch<SetStateAction<string>>
 }
 
-const InputForm = ({type, setRoute}:InputFormProps) =>{
+const InputForm =  ({type, setRoute}:InputFormProps) =>{
 
     const [username, setUsername] = useState("");
 
     const [password, setPassword] = useState("");
   
+    const [errorMessage, setErrorMessage] = useState("")
     const validateForm =()=> {
       return username.length > 0 && password.length > 0;
     }
   
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      console.log(username + " " + password);
+    const handleSubmit = async () => {
+      const loginResponse = await handleLogin(username, password);
+      console.log(loginResponse);
+      if(loginResponse['error']){
+        setErrorMessage(loginResponse['error'])
+      }else{
+        setRoute(loginResponse[1]);
+      }
+      
     }
 
     return (
         <div className={type}>
-          <Form onSubmit={handleSubmit}>
+          <Form>
             <Form.Group controlId="username">
               <Form.Label>Username</Form.Label>
     
@@ -46,8 +53,12 @@ const InputForm = ({type, setRoute}:InputFormProps) =>{
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
-            <MyButton buttonText={"SUBMIT"}></MyButton>
+            <div className="error"> {errorMessage}</div>
+            <div>
+            <MyButton buttonText={"SUBMIT"} handleOnClick={handleSubmit}></MyButton>
             <MyButton buttonText={type} setRoute={setRoute}></MyButton>
+            </div>
+
           </Form>
         </div>
     );
