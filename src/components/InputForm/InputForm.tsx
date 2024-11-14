@@ -5,31 +5,18 @@ import MyButton from "../MyButton/MyButton";
 import './InputForm.scss'
 interface InputFormProps{
     type: string,
-    setRoute:Dispatch<SetStateAction<string>>
+    setRoute:Dispatch<SetStateAction<string>>,
+    handleSubmit:(username:string, password:string)=>Promise<void>
 }
 
-const InputForm =  ({type, setRoute}:InputFormProps) =>{
+const InputForm =  ({type,setRoute , handleSubmit}:InputFormProps) =>{
 
     const [username, setUsername] = useState("");
 
     const [password, setPassword] = useState("");
   
     const [errorMessage, setErrorMessage] = useState("")
-    const validateForm =()=> {
-      return username.length > 0 && password.length > 0;
-    }
   
-    const handleSubmit = async () => {
-      const loginResponse = await handleLogin(username, password);
-      console.log(loginResponse);
-      if(loginResponse['error']){
-        setErrorMessage(loginResponse['error'])
-      }else{
-        setRoute(loginResponse[1]);
-      }
-      
-    }
-
     return (
         <div className={type}>
           <Form>
@@ -55,7 +42,7 @@ const InputForm =  ({type, setRoute}:InputFormProps) =>{
             </Form.Group>
             <div className="error"> {errorMessage}</div>
             <div>
-            <MyButton buttonText={"SUBMIT"} handleOnClick={handleSubmit}></MyButton>
+            <MyButton buttonText={"SUBMIT"} handleOnClick={()=>handleSubmit(username, password)}></MyButton>
             <MyButton buttonText={type} setRoute={setRoute}></MyButton>
             </div>
 

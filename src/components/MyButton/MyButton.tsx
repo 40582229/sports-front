@@ -1,12 +1,12 @@
 
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, MouseEventHandler, SetStateAction } from "react";
 import { Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 interface MyButtonProps{
   buttonText:string,
   setRoute?:Dispatch<SetStateAction<string>>,
-  handleOnClick?:()=>void
+  handleOnClick?:MouseEventHandler<HTMLButtonElement>
 }
 
 const MyButton = ({buttonText,setRoute,handleOnClick}:MyButtonProps) => {

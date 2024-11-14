@@ -15,6 +15,27 @@ const  login = async (username:string, password:string) =>{
     return data 
 }
 
+const  register = async (username:string, password:string) =>{
+  let fetchRes = await fetch("http://127.0.0.1:5000/register",{
+      method: "POST",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({username:username, password:password})
+    });
+
+    const data = await fetchRes.json();
+
+    //console.log(data);
+  return data 
+}
+
+export const handleRegister = async (username:string, password:string) =>{
+  const data =  await register(username, password);
+
+  return data;
+}
+
 export const handleLogin = async (username:string, password:string) =>{
     const data =  await login(username, password);
 
