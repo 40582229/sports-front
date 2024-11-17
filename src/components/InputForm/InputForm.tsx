@@ -1,5 +1,4 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import {handleLogin} from '../../../src/Methods/methods'
 import Form from "react-bootstrap/Form";
 import MyButton from "../MyButton/MyButton";
 import './InputForm.scss'
@@ -7,10 +6,10 @@ interface InputFormProps{
     type: string,
     setRoute:Dispatch<SetStateAction<string>>,
     handleSubmit:(username:string, password:string)=>Promise<void>,
-    errorMessage:string
+    message:Object
 }
 
-const InputForm =  ({type,setRoute , handleSubmit, errorMessage}:InputFormProps) =>{
+const InputForm =  ({type,setRoute , handleSubmit, message,}:InputFormProps) =>{
 
     const [username, setUsername] = useState("");
 
@@ -41,7 +40,7 @@ const InputForm =  ({type,setRoute , handleSubmit, errorMessage}:InputFormProps)
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
-            <div className="error"> {errorMessage}</div>
+            <div className={Object.keys(message)[0]}>{message[Object.keys(message)[0]]}</div>
             <div>
             <MyButton buttonText={"SUBMIT"} handleOnClick={()=>handleSubmit(username, password)}></MyButton>
             <MyButton buttonText={type} setRoute={setRoute}></MyButton>

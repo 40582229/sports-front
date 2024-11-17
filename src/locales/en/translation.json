@@ -1,5 +1,5 @@
 {
-    "register":"REGISTER PAGE",
-    "login": "LOGIN PAGE",
+    "register":"GO TO REGISTER PAGE",
+    "login": "GO TO LOGIN PAGE",
     "submit":"SUBMIT"
 }

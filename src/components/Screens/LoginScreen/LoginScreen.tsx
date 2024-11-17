@@ -5,23 +5,24 @@ import { handleLogin } from "Methods/methods";
 interface LoginScreenProps{
     setRoute:Dispatch<SetStateAction<string>>
 }
+
 const LoginScreen = ({setRoute}:LoginScreenProps) =>{
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (username:string, password:string) => {
     const loginResponse = await handleLogin(username, password);
     console.log(loginResponse);
-    if(loginResponse['error']){
-      setErrorMessage(loginResponse['error'])
-    }else{
+    if(loginResponse){
+      setMessage(loginResponse)
+    }/*else{
       setRoute('rokas');
-    }
+    }*/
 
   }
   
   return (
-    <InputForm type="register" setRoute={setRoute} handleSubmit={handleSubmit} errorMessage={errorMessage}></InputForm>
+    <InputForm type="register" setRoute={setRoute} handleSubmit={handleSubmit} message={message}></InputForm>
   );
 }
 

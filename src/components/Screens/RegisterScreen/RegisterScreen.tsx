@@ -8,21 +8,18 @@ interface RegisterScreenProps{
 }
 const RegisterScreen = ({setRoute}:RegisterScreenProps) =>{
 
-  const [errorMessage, setErrorMessage] = useState("")
+  const [message, setMessage] = useState({})
 
   const handleSubmit = async (username:string, password:string) => {
     const registerResponse = await handleRegister(username, password);
     console.log(registerResponse);
-    if(registerResponse['error']){
-      setErrorMessage(registerResponse['error'])
-    }else{
-      setRoute('rokas');
+    if(registerResponse){
+      setMessage(registerResponse)
     }
-
   }
 
   return (
-    <InputForm type="login" setRoute={setRoute} handleSubmit={handleSubmit} errorMessage={errorMessage}></InputForm>
+    <InputForm type="login" setRoute={setRoute} handleSubmit={handleSubmit} message={message}></InputForm>
   );
 }
 
