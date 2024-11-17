@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 import InputForm from "../../InputForm/InputForm";
 import { handleRegister } from "Methods/methods";
@@ -8,14 +8,21 @@ interface RegisterScreenProps{
 }
 const RegisterScreen = ({setRoute}:RegisterScreenProps) =>{
 
+  const [errorMessage, setErrorMessage] = useState("")
+
   const handleSubmit = async (username:string, password:string) => {
     const registerResponse = await handleRegister(username, password);
     console.log(registerResponse);
-    setRoute('rokas');
+    if(registerResponse['error']){
+      setErrorMessage(registerResponse['error'])
+    }else{
+      setRoute('rokas');
+    }
+
   }
 
   return (
-    <InputForm type="login" setRoute={setRoute} handleSubmit={handleSubmit}></InputForm>
+    <InputForm type="login" setRoute={setRoute} handleSubmit={handleSubmit} errorMessage={errorMessage}></InputForm>
   );
 }
 

@@ -6,16 +6,17 @@ import './InputForm.scss'
 interface InputFormProps{
     type: string,
     setRoute:Dispatch<SetStateAction<string>>,
-    handleSubmit:(username:string, password:string)=>Promise<void>
+    handleSubmit:(username:string, password:string)=>Promise<void>,
+    errorMessage:string
 }
 
-const InputForm =  ({type,setRoute , handleSubmit}:InputFormProps) =>{
+const InputForm =  ({type,setRoute , handleSubmit, errorMessage}:InputFormProps) =>{
 
     const [username, setUsername] = useState("");
 
     const [password, setPassword] = useState("");
   
-    const [errorMessage, setErrorMessage] = useState("")
+    
   
     return (
         <div className={type}>

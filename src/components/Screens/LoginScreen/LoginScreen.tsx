@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 import InputForm from "../../InputForm/InputForm";
 import { handleLogin } from "Methods/methods";
@@ -7,14 +7,21 @@ interface LoginScreenProps{
 }
 const LoginScreen = ({setRoute}:LoginScreenProps) =>{
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleSubmit = async (username:string, password:string) => {
     const loginResponse = await handleLogin(username, password);
     console.log(loginResponse);
-    setRoute('rokas');
+    if(loginResponse['error']){
+      setErrorMessage(loginResponse['error'])
+    }else{
+      setRoute('rokas');
+    }
+
   }
   
   return (
-    <InputForm type="register" setRoute={setRoute} handleSubmit={handleSubmit}></InputForm>
+    <InputForm type="register" setRoute={setRoute} handleSubmit={handleSubmit} errorMessage={errorMessage}></InputForm>
   );
 }
 
