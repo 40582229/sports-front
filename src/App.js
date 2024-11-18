@@ -1,5 +1,6 @@
 import './App.css';
 import Controler from './controler/Controler'
+
 function App() {
 
   return (

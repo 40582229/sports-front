@@ -1,12 +1,13 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 
 import InputForm from "../../InputForm/InputForm";
-import { handleLogin } from "Methods/methods";
+import { handleLogin, setSessionToken, verifyToken } from "Methods/methods";
 interface LoginScreenProps{
     setRoute:Dispatch<SetStateAction<string>>
+    setTokenKey:Dispatch<SetStateAction<string>>
 }
 
-const LoginScreen = ({setRoute}:LoginScreenProps) =>{
+const LoginScreen = ({setRoute, setTokenKey}:LoginScreenProps) =>{
 
   const [message, setMessage] = useState("");
 
@@ -14,10 +15,13 @@ const LoginScreen = ({setRoute}:LoginScreenProps) =>{
     const loginResponse = await handleLogin(username, password);
     console.log(loginResponse);
     if(loginResponse){
-      setMessage(loginResponse)
-    }/*else{
-      setRoute('rokas');
-    }*/
+      setMessage(loginResponse);
+      setTokenKey(Object.keys(loginResponse)[1]);
+      setSessionToken(Object.keys(loginResponse)[1], loginResponse[Object.keys(loginResponse)[1]])
+      setRoute('home');
+    }else{
+      setRoute('login');
+    }
 
   }
   
