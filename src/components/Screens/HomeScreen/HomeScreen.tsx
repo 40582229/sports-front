@@ -1,13 +1,13 @@
 import { verifyToken } from "Methods/methods";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 
 
 interface HomeScreenProps{
     setRoute:Dispatch<SetStateAction<string>>
-    tokenKey:string
 }
-const HomeScreen = ({setRoute, tokenKey}:HomeScreenProps) =>{
-  verifyToken(tokenKey, setRoute)
+const HomeScreen = ({setRoute}:HomeScreenProps) =>{
+
+  
 
   return (
     <h1>ROKAS HOME SCREEN</h1>

@@ -7,18 +7,18 @@ import React, { useState } from "react";
 const Controler = () =>{
 
     const [route, setRoute] = useState('login');
-    const [tokenKey, setTokenKey] = useState<string>();
 
     if(route === 'home' ){
-        return <HomeScreen setRoute={setRoute} tokenKey={tokenKey}/>
+        return <HomeScreen setRoute={setRoute} />
     }
 
     if(route === 'login' ){
+        sessionStorage.removeItem('token');
         return(
-            <LoginScreen setRoute={setRoute} setTokenKey={setTokenKey}></LoginScreen>
+            <LoginScreen setRoute={setRoute} ></LoginScreen>
         )
     }
-    if(route === 'register'){
+    if(route === 'register' ){
         return <RegisterScreen setRoute={setRoute}></RegisterScreen>
     }
 

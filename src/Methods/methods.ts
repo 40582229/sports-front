@@ -31,22 +31,24 @@ const  register = async (username:string, password:string) =>{
   return data 
 }
 
-export const verifyToken = async (tokenKey:string, setRoute:Dispatch<SetStateAction<string>>) =>{
-  const token = window.sessionStorage.getItem(tokenKey);
+export const verifyToken = async () =>{
+  const token = window.sessionStorage.getItem('token');
+  if(!token)return false;
   const secret = new TextEncoder().encode(process.env.REACT_APP_SECRET);
   const alg = process.env.REACT_APP_ALG;
   try{
-    const decodedToken = await jwtVerify(token,secret, {algorithms:[alg]})
-    console.log(decodedToken)
+    const decodedToken = await jwtVerify(token,secret, {algorithms:[alg]});
+    console.log(decodedToken);
+    return true;
   } catch(error){
-    setRoute('login')
-    console.error('Invalid or expired token', error.message)
-    
+    console.error('Invalid or expired token', error.message);
+    sessionStorage.removeItem('token');
+    return false;
   }
 }
 
-export const setSessionToken = (tokenKey:string, token:string)=>{
-  window.sessionStorage.setItem(tokenKey, token);
+export const setSessionToken = ( token:string)=>{
+  window.sessionStorage.setItem('token', token);
 }
 
 export const handleRegister = async (username:string, password:string) =>{
