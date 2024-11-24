@@ -9,6 +9,7 @@ const Controler = () =>{
     const [route, setRoute] = useState('login');
 
     if(route === 'home' ){
+
         return <HomeScreen setRoute={setRoute} />
     }
 

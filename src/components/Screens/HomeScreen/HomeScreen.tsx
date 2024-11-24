@@ -1,11 +1,17 @@
 
-import React, { Dispatch, SetStateAction, useState} from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState} from "react";
 import { TextField, Button, Box, Typography, List, ListItem, ListItemText } from "@mui/material";
+import { handleExcersise, verifyToken } from "Methods/methods";
 
 interface HomeScreenProps{
     setRoute:Dispatch<SetStateAction<string>>
 }
 const HomeScreen = ({setRoute}:HomeScreenProps) =>{
+
+  setTimeout(async () => {
+    await verifyToken(setRoute);
+  }, 1);
+
   const [formData, setFormData] = useState({
     name: "",
     reps: "",
@@ -21,14 +27,21 @@ const HomeScreen = ({setRoute}:HomeScreenProps) =>{
     });
   };
 
-  const handleAddExercise = () => {
+  const handleAddExercise = async () => {
     const { name, reps, sets } = formData;
-    if (name && reps && sets) {
+    if(!await verifyToken()){
+      setRoute('login')
+      window.location.reload();
+    }else if (name && reps && sets && await verifyToken()) {
       setExercises([...exercises, formData]);
-      // Clear the form
       setFormData({ name: "", reps: "", sets: "" });
-    } else {
-      alert("Please fill all fields!");
+      const excersise = {
+        name:name,
+        reps:reps,
+        sets:sets
+      }
+      const handleAddExerciseResponse =  await handleExcersise(excersise)
+      console.log(handleAddExerciseResponse);
     }
   };
 
