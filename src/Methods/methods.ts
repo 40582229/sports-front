@@ -46,6 +46,21 @@ const addExcersise = async (excersise: any) =>{
   return data;
 }
 
+const getExcersise = async () =>{
+  let fetchRes = await fetch("http://127.0.0.1:5000/getExcersise", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({token: window.sessionStorage.getItem("token") }),
+  });
+
+  const data = await fetchRes.json();
+
+  //console.log(data);
+  return data;
+}
+
 export const verifyToken = async (
   setRoute?: React.Dispatch<React.SetStateAction<string>>
 ) => {
@@ -70,6 +85,12 @@ export const verifyToken = async (
 export const setSessionToken = (token: string) => {
   window.sessionStorage.setItem("token", token);
 };
+
+export const handleGetExcersise = async () =>{
+  const data = await getExcersise();
+
+  return data;
+}
 
 export const handleExcersise = async (excersise: any) =>{
   const data = await addExcersise(excersise);

@@ -1,24 +1,41 @@
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
+import { handleExcersise, handleGetExcersise, verifyToken } from "Methods/methods";
 
-import React, { Dispatch, SetStateAction, useEffect, useState} from "react";
-import { TextField, Button, Box, Typography, List, ListItem, ListItemText } from "@mui/material";
-import { handleExcersise, verifyToken } from "Methods/methods";
-
-interface HomeScreenProps{
-    setRoute:Dispatch<SetStateAction<string>>
+interface HomeScreenProps {
+  setRoute: Dispatch<SetStateAction<string>>;
 }
-const HomeScreen = ({setRoute}:HomeScreenProps) =>{
-
+const HomeScreen = ({ setRoute }: HomeScreenProps) => {
   setTimeout(async () => {
     await verifyToken(setRoute);
   }, 1);
+
+  
 
   const [formData, setFormData] = useState({
     name: "",
     reps: "",
     sets: "",
   });
+
   const [exercises, setExercises] = useState([]);
 
+  const getUserExcersises = async ()=>{
+    const excersises = await handleGetExcersise();
+    console.log(excersises)
+    setExercises(excersises['excersises'])
+  }
+  useEffect(()=>{
+    getUserExcersises();
+  },[])
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -29,22 +46,23 @@ const HomeScreen = ({setRoute}:HomeScreenProps) =>{
 
   const handleAddExercise = async () => {
     const { name, reps, sets } = formData;
-    if(!await verifyToken()){
-      setRoute('login')
+    if (!(await verifyToken())) {
+      setRoute("login");
       window.location.reload();
-    }else if (name && reps && sets && await verifyToken()) {
-      setExercises([...exercises, formData]);
-      setFormData({ name: "", reps: "", sets: "" });
+    } else if (name && reps && sets && (await verifyToken())) {
       const excersise = {
-        name:name,
-        reps:reps,
-        sets:sets
-      }
-      const handleAddExerciseResponse =  await handleExcersise(excersise)
+        name: name,
+        reps: reps,
+        sets: sets,
+      };
+      const handleAddExerciseResponse = await handleExcersise(excersise);
       console.log(handleAddExerciseResponse);
+      if (!handleAddExerciseResponse["error"]) {
+        setExercises([...exercises, formData]);
+        setFormData({ name: "", reps: "", sets: "" });
+      }
     }
   };
-
 
   return (
     <Box
@@ -94,50 +112,49 @@ const HomeScreen = ({setRoute}:HomeScreenProps) =>{
         required
         inputProps={{ min: 1 }}
       />
-        <Button variant="contained" color="primary" onClick={handleAddExercise}>
-          Add Exercise
-        </Button>
+      <Button variant="contained" color="primary" onClick={handleAddExercise}>
+        Add Exercise
+      </Button>
       <Typography
-      variant="subtitle1"
-      component="label"
-      htmlFor="exercises"
-      sx={{ fontWeight: 'bold', display: 'block', marginBottom: 1 }}
-    >
-      Exercises
-    </Typography>
-    <Box
-      sx={{
-        width: "auto", // Set the width of the scroll area
-        height: "400px", // Set the height of the scroll area
-        overflowY: "auto", // Enable vertical scrolling
-        border: "1px solid #ccc", // Optional: Add a border
-        padding: 2, // Optional: Add some padding
-        borderRadius: "8px", // Optional: Add rounded corners
-      }}
-    >
-      {    <List>
-        {exercises.map((exercise, index) => (
-                <Typography
+        variant="subtitle1"
+        component="label"
+        htmlFor="exercises"
+        sx={{ fontWeight: "bold", display: "block", marginBottom: 1 }}
+      >
+        Exercises
+      </Typography>
+      <Box
+        sx={{
+          width: "auto", // Set the width of the scroll area
+          height: "400px", // Set the height of the scroll area
+          overflowY: "auto", // Enable vertical scrolling
+          border: "1px solid #ccc", // Optional: Add a border
+          padding: 2, // Optional: Add some padding
+          borderRadius: "8px", // Optional: Add rounded corners
+        }}
+      >
+        {
+          <List>
+            {exercises.map((exercise, index) => (
+              <Typography 
                 variant="subtitle2"
                 component="label"
                 htmlFor="exercise-name"
-                sx={{ fontWeight: 'bold', display: 'block', marginBottom: 1 }}
+                sx={{ fontWeight: "bold", display: "block", marginBottom: 1 }}
               >
-                          <ListItem key={index}>
-            <ListItemText
-              primary={`${exercise.name}`}
-              secondary={`Reps: ${exercise.reps}, Sets: ${exercise.sets}`}
-            />
-          </ListItem>
+                <ListItem key={index}>
+                  <ListItemText
+                    primary={`${exercise.name}`}
+                    secondary={`Reps: ${exercise.reps}, Sets: ${exercise.sets}`}
+                  />
+                </ListItem>
               </Typography>
-
-        ))}
-      </List>}
-    </Box>
-
-
+            ))}
+          </List>
+        }
+      </Box>
     </Box>
   );
-}
+};
 
-export default HomeScreen
+export default HomeScreen;
