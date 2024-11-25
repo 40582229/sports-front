@@ -44,7 +44,6 @@ const HomeScreen = ({ setRoute }: HomeScreenProps) => {
     const { name, reps, sets } = formData;
     if (!(await verifyToken())) {
       setRoute("login");
-      window.location.reload();
     } else if (name && reps && sets && (await verifyToken())) {
       const excersise = {
         name: name,
