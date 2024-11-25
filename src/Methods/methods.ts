@@ -2,7 +2,7 @@ import { jwtVerify } from "jose";
 import { Dispatch, SetStateAction } from "react";
 
 const login = async (username: string, password: string) => {
-  let fetchRes = await fetch("http://127.0.0.1:5000/login", {
+  let fetchRes = await fetch(`${process.env.REACT_APP_API_LINK}login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -17,7 +17,7 @@ const login = async (username: string, password: string) => {
 };
 
 const register = async (username: string, password: string) => {
-  let fetchRes = await fetch("http://127.0.0.1:5000/register", {
+  let fetchRes = await fetch(`${process.env.REACT_APP_API_LINK}register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,7 +32,7 @@ const register = async (username: string, password: string) => {
 };
 
 const addExcersise = async (excersise: any) =>{
-  let fetchRes = await fetch("http://127.0.0.1:5000/excersise", {
+  let fetchRes = await fetch(`${process.env.REACT_APP_API_LINK}excersise`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -47,7 +47,7 @@ const addExcersise = async (excersise: any) =>{
 }
 
 const getExcersise = async () =>{
-  let fetchRes = await fetch("http://127.0.0.1:5000/getExcersise", {
+  let fetchRes = await fetch(`${process.env.REACT_APP_API_LINK}getExcersise`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
