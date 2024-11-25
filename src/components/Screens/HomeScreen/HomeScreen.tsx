@@ -42,9 +42,7 @@ const HomeScreen = ({ setRoute }: HomeScreenProps) => {
 
   const handleAddExercise = async () => {
     const { name, reps, sets } = formData;
-    if (!(await verifyToken())) {
-      setRoute("login");
-    } else if (name && reps && sets && (await verifyToken())) {
+     if (name && reps && sets ) {
       const excersise = {
         name: name,
         reps: reps,

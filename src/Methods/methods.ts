@@ -1,5 +1,4 @@
 import { jwtVerify } from "jose";
-import { Dispatch, SetStateAction } from "react";
 
 const login = async (username: string, password: string) => {
   let fetchRes = await fetch(`${process.env.REACT_APP_API_LINK}login`, {
