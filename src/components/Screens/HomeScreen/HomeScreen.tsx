@@ -14,11 +14,7 @@ interface HomeScreenProps {
   setRoute: Dispatch<SetStateAction<string>>;
 }
 const HomeScreen = ({ setRoute }: HomeScreenProps) => {
-  setTimeout(async () => {
-    await verifyToken(setRoute);
-  }, 1);
 
-  
 
   const [formData, setFormData] = useState({
     name: "",
