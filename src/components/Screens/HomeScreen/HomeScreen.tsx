@@ -23,9 +23,13 @@ const HomeScreen = ({ setRoute }: HomeScreenProps) => {
   });
 
   const [exercises, setExercises] = useState([]);
-
+  
   const getUserExcersises = async ()=>{
     const excersises = await handleGetExcersise();
+    if(excersises['error']){
+      console.log(excersises)
+      setRoute('login')
+    }
     console.log(excersises)
     setExercises(excersises['excersises'])
   }
