@@ -18,8 +18,10 @@ const HomeScreen = ({ setRoute }: HomeScreenProps) => {
 
   const [formData, setFormData] = useState({
     name: "",
+    weight:"",
     reps: "",
     sets: "",
+    date:""
   });
 
   const [exercises, setExercises] = useState([]);
@@ -45,18 +47,23 @@ const HomeScreen = ({ setRoute }: HomeScreenProps) => {
   };
 
   const handleAddExercise = async () => {
-    const { name, reps, sets } = formData;
+    const { name, weight ,reps, sets, } = formData;
+    const currentDate = new Date().toISOString().slice(0, 10);
      if (name && reps && sets ) {
+
       const excersise = {
         name: name,
+        weight: weight,
         reps: reps,
         sets: sets,
+        date: currentDate
       };
       const handleAddExerciseResponse = await handleExcersise(excersise);
       console.log(handleAddExerciseResponse);
       if (!handleAddExerciseResponse["error"]) {
-        setExercises([...exercises, formData]);
-        setFormData({ name: "", reps: "", sets: "" });
+        
+        setExercises([...exercises, {...formData, date:currentDate}]);
+        setFormData({ name: "", weight:"" ,reps: "", sets: "", date:""});
       }
     }
   };
@@ -86,6 +93,17 @@ const HomeScreen = ({ setRoute }: HomeScreenProps) => {
         value={formData.name}
         onChange={handleChange}
         required
+      />
+
+      <TextField
+        label="Weight"
+        variant="outlined"
+        type="number"
+        name="weight"
+        value={formData.weight}
+        onChange={handleChange}
+        required
+        inputProps={{ min: 0 }}
       />
 
       <TextField
@@ -123,7 +141,7 @@ const HomeScreen = ({ setRoute }: HomeScreenProps) => {
       <Box
         sx={{
           width: "auto", // Set the width of the scroll area
-          height: "400px", // Set the height of the scroll area
+          height: "400px", // Set the hei    date: "",ght of the scroll area
           overflowY: "auto", // Enable vertical scrolling
           border: "1px solid #ccc", // Optional: Add a border
           padding: 2, // Optional: Add some padding
@@ -142,7 +160,7 @@ const HomeScreen = ({ setRoute }: HomeScreenProps) => {
                 <ListItem key={index}>
                   <ListItemText
                     primary={`${exercise.name}`}
-                    secondary={`Reps: ${exercise.reps}, Sets: ${exercise.sets}`}
+                    secondary={ `Weight:${exercise.weight}kg, Reps: ${exercise.reps}, Sets: ${exercise.sets}, Date: ${exercise.date}`}
                   />
                 </ListItem>
               </Typography>
