@@ -150,7 +150,7 @@ const HomeScreen = ({ setRoute }: HomeScreenProps) => {
       >
         {
           <List>
-            {exercises.map((exercise, index) => (
+            {exercises.slice().reverse().map((exercise, index) => (
               <Typography 
                 variant="subtitle2"
                 component="label"
