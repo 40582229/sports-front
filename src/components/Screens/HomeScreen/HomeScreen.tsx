@@ -140,12 +140,12 @@ const HomeScreen = ({ setRoute }: HomeScreenProps) => {
       </Typography>
       <Box
         sx={{
-          width: "auto", // Set the width of the scroll area
-          height: "400px", // Set the hei    date: "",ght of the scroll area
-          overflowY: "auto", // Enable vertical scrolling
-          border: "1px solid #ccc", // Optional: Add a border
-          padding: 2, // Optional: Add some padding
-          borderRadius: "8px", // Optional: Add rounded corners
+          width: "auto", 
+          height: "400px", 
+          overflowY: "auto", 
+          border: "1px solid #ccc", 
+          padding: 2, 
+          borderRadius: "8px", 
         }}
       >
         {
