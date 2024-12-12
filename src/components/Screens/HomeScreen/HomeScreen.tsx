@@ -82,6 +82,12 @@ const HomeScreen = ({ setRoute }: HomeScreenProps) => {
         borderRadius: 2,
       }}
     >
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={()=> setRoute("login")}>
+        LOG OUT
+      </Button>
       <Typography variant="h6" textAlign="center">
         Add New Exercise
       </Typography>
